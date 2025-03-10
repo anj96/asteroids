@@ -13,7 +13,7 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable,)
-    Shot.containers =(updatable, drawable)
+    Shot.containers =(shots, updatable, drawable)
     pygame.init()
     clock = pygame.time.Clock()
     dt =0
@@ -36,6 +36,10 @@ def main():
             if object.checkIfCollision(player1):
                 print("Game over!")
                 return
+            for s in shots:
+                if object.checkIfCollision(s):
+                    s.kill()
+                    object.split()
         pygame.Surface.fill(screen, color=(0,0,0))
         for thing in drawable:
             thing.draw(screen)
